@@ -48,6 +48,8 @@ install:
   - '[ "$TRAVIS_OS_NAME" != linux ] || npm install codacy-coverage'
   - '[ "$TRAVIS_OS_NAME" != osx ] || brew install cppcheck doxygen graphviz qt$BREW'
   - '[ "$TRAVIS_OS_NAME" != osx ] || brew link --force qt$BREW'
+  - sudo updatedb
+  - locate codacy-coverage
   - qmake -v
 
 before_script:
