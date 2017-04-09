@@ -2,10 +2,6 @@ language: cpp
 
 dist: trusty
 
-compiler:
-  - clang
-  - gcc
-
 before_install:
   - sudo apt-get -qy update
 
@@ -16,8 +12,6 @@ install:
 
 before_script:
   - cppcheck --error-exitcode=1 --quiet .
-  - '[ "$CXX" != clang++ ] || export QMAKESPEC=linux-clang'
-  - '[ "$CXX" != g++     ] || export QMAKESPEC=linux-g++'
   - export QT_SELECT=qt5
   - mkdir -p "$TRAVIS_BUILD_DIR-build"
   - qmake -o "$TRAVIS_BUILD_DIR-build" -r -Wall -Wlogic -Wparser CONFIG+=debug_and_release "$TRAVIS_BUILD_DIR"
