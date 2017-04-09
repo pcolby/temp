@@ -74,4 +74,4 @@ after_success:
   - ls ~/node_modules
   - ls ~/node_modules/codacy-coverage
   - ls ~/node_modules/codacy-coverage/bin
-  - cat "$TRAVIS_BUILD_DIR-build/test/release/test-tmp/coverage.info" | ~/node_modules/codacy-coverage/bin/codacy-coverage.js
+  - cat "$TRAVIS_BUILD_DIR-build/test/release/test-tmp/coverage.info" | `npm bin`/codacy-coverage
