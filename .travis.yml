@@ -69,4 +69,7 @@ after_success:
   - make -C "$TRAVIS_BUILD_DIR-build/test" coverage
   - curl https://codecov.io/bash > /tmp/codecov.sh
   - bash /tmp/codecov.sh -f "$TRAVIS_BUILD_DIR-build/test/release/test-tmp/coverage.info"
+  - ls ~/node_modules
+  - ls ~/node_modules/codacy-coverage
+  - ls ~/node_modules/codacy-coverage/bin
   - cat "$TRAVIS_BUILD_DIR-build/test/release/test-tmp/coverage.info" | ~/node_modules/codacy-coverage/bin/codacy-coverage.js
