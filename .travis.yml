@@ -62,10 +62,10 @@ before_script:
   - qmake -o "$TRAVIS_BUILD_DIR-build" -r -Wall -Wlogic -Wparser CONFIG+=debug_and_release "$TRAVIS_BUILD_DIR"
 
 script:
-  - make -C "$TRAVIS_BUILD_DIR-build" all
+  - make -C "$TRAVIS_BUILD_DIR-build" -j2 all
   - make -C "$TRAVIS_BUILD_DIR-build" -j2 check TESTARGS=-silent
 
 after_success:
   - make -C "$TRAVIS_BUILD_DIR-build/test" coverage
   - curl https://codecov.io/bash > /tmp/codecov.sh
-  - bash /tmp/codecov.sh -f "$TRAVIS_BUILD_DIR-build/release/test-tmp/coverage.info"
+  - bash /tmp/codecov.sh -f "$TRAVIS_BUILD_DIR-build/test/release/test-tmp/coverage.info"
