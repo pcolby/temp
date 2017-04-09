@@ -5,9 +5,6 @@ configuration:
 install:
   - 'C:\Qt\5.7\msvc2015_64\bin\qtenv2.bat'
   - qmake -v
-  - if %QTDIR:msvc=%==%QTDIR% g++ --version
-  - if %QTDIR:msvc=%==%QTDIR% set make=mingw32-make.exe
-  - if %QTDIR:msvc=%==%QTDIR% %make% --version
   - '"%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64'
   - nmake.exe /? > nul
 
