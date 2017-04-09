@@ -1,6 +1,7 @@
 TARGET = test
 TEMPLATE = app
 QT += testlib
+QT -= gui
 CONFIG += testcase
 
 # Enable C++11 for all supported compilers.
