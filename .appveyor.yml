@@ -1,40 +1,15 @@
-environment:
-  matrix:
-    - QTDIR: C:\Qt\5.3\mingw482_32
-    - QTDIR: C:\Qt\5.3\msvc2013_opengl
-    - QTDIR: C:\Qt\5.3\msvc2013_64_opengl
-    - QTDIR: C:\Qt\5.4\mingw491_32
-    - QTDIR: C:\Qt\5.4\msvc2013_opengl
-    - QTDIR: C:\Qt\5.4\msvc2013_64_opengl
-    - QTDIR: C:\Qt\5.5\mingw492_32
-    - QTDIR: C:\Qt\5.5\msvc2013
-    - QTDIR: C:\Qt\5.5\msvc2013_64
-    - QTDIR: C:\Qt\5.6\mingw49_32
-    - QTDIR: C:\Qt\5.6\msvc2013
-    - QTDIR: C:\Qt\5.6\msvc2013_64
-    - QTDIR: C:\Qt\5.6\msvc2015
-    - QTDIR: C:\Qt\5.6\msvc2015_64
-    - QTDIR: C:\Qt\5.7\mingw53_32
-    - QTDIR: C:\Qt\5.7\msvc2013
-    - QTDIR: C:\Qt\5.7\msvc2013_64
-    - QTDIR: C:\Qt\5.7\msvc2015
-    - QTDIR: C:\Qt\5.7\msvc2015_64
-
 configuration:
   - debug
   - release
 
 install:
-  - '%QTDIR%\bin\qtenv2.bat'
+  - 'C:\Qt\5.7\msvc2015_64\bin\qtenv2.bat'
   - qmake -v
-  - if %QTDIR:_64=%==%QTDIR% ( set ARCH=x86 ) else set ARCH=x64
   - if %QTDIR:msvc=%==%QTDIR% g++ --version
   - if %QTDIR:msvc=%==%QTDIR% set make=mingw32-make.exe
   - if %QTDIR:msvc=%==%QTDIR% %make% --version
-  - if not %QTDIR:msvc2013=%==%QTDIR% call "%ProgramFiles(x86)%\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" %ARCH%
-  - if not %QTDIR:msvc2015=%==%QTDIR% call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %ARCH%
-  - if not %QTDIR:msvc=%==%QTDIR% set make=nmake.exe
-  - if not %QTDIR:msvc=%==%QTDIR% %make% /? > nul
+  - "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
+  - nmake.exe /? > nul
 
 before_build:
   # Prepare the out-of-source build directory.
@@ -43,7 +18,7 @@ before_build:
 
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%-build
-  - '%make%'
+  - nmake.exe
 
 after_build:
   # Add a link to the build output within the source directory. This is needed because AppVeyor does
@@ -51,7 +26,7 @@ after_build:
   - mklink %APPVEYOR_BUILD_FOLDER%\example.exe %APPVEYOR_BUILD_FOLDER%-build\src\%CONFIGURATION%\example.exe
 
 test_script:
-  - if not %CONFIGURATION%==debug %make% check TESTARGS=-silent
+  - if not %CONFIGURATION%==debug nmake.exe check TESTARGS=-silent
 
 artifacts:
   - path: example.exe
