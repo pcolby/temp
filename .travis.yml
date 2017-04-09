@@ -11,8 +11,6 @@ compiler:
   - gcc
 
 env:
-  global:
-    - secure: "AjdrWyF4IDjdFDsuoJ4IlqnlVwp/xgkaagg175puRk71fk5fJZOEEL2JpMZSqB4/aiMGh/esVkn38805X9ehY+eE4XhPMyLx7WqR8jjHNf61T80swpfOWxgmRsL6UHD8D0JHJe57rf2Viewo96iSGMVEW4LZVzvoo53iFI9QQ8OBc73FazdRp8Hg/X8FJ1sVuF2NxIt0mXI4ojryN03bBS9RLePZr5jI8jYIaenJZoG2KB/+Za9JM4dryno137EXb78Md406RrwGDShAcnAt9hxRqwDF4XvmpC3c//EkKB45m67WUsrMkX3eL5e2Av06Q77gjej2cdwjEqx0Ie2ZMnbsFuUsREuZHRVv/j596udRFIOHPemWUN4M8kYEvODg0vd4bK0QEiXfCdysC4kFhbeesqCVf3Wui8aQx8FBS/ORgaXh0LjdPGG9LB9n9H47ZeOn3+g3r3MCWASSh58ewWKN46wChei9fAyJQf9gRxurbEbMMSgN9Z+gnnUVlT7IMX6ijDt9RJgvBo5JyuPnJgVcmxbWPAPwCWX8lWD9fc4u9Gq/lb69uM7qgaEsodHc9bHqkf1sCHu8Vav0Ejj6celeWkDZSlClYNMBTMzwgbRIvgO1Wsh472jFOl4TokLym83Zb9sLQ1nMLvl5ilAyLKWnZvIyCju1I3k0HbJgYdc="
   matrix:
     - QT=5  BREW=5
     - QT=5  BREW=ex PPA=ubuntu-sdk-team/ppa
@@ -71,7 +69,3 @@ after_success:
   - make -C "$TRAVIS_BUILD_DIR-build/test" coverage
   - curl https://codecov.io/bash > /tmp/codecov.sh
   - bash /tmp/codecov.sh -f "$TRAVIS_BUILD_DIR-build/test/release/test-tmp/coverage.info"
-  - ls ~/node_modules
-  - ls ~/node_modules/codacy-coverage
-  - ls ~/node_modules/codacy-coverage/bin
-  - cat "$TRAVIS_BUILD_DIR-build/test/release/test-tmp/coverage.info" | `npm bin`/codacy-coverage -p "$TRAVIS_BUILD_DIR"
